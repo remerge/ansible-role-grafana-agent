@@ -1,0 +1,32 @@
+---
+# tasks file for grafana-agent
+
+- name: import assert.yml
+  import_tasks: assert.yml
+  run_once: yes
+  delegate_to: localhost
+
+- name: Install on RedHat
+  include_tasks: "RedHat.yml"
+  when:
+    - ansible_os_family == "RedHat"
+
+- name: Install on Debian
+  include_tasks: "Debian.yml"
+  when:
+    - ansible_os_family == "Debian"
+
+- name: Install on FreeBSD
+  include_tasks: "FreeBSD.yml"
+  when:
+    - ansible_os_family == "FreeBSD"
+
+- name: Configure grafana-agent on RedHat or Debian based systems
+  include_tasks: "configure_linux.yml"
+  when:
+    - ansible_os_family == "RedHat" or ansible_os_family == "Debian"
+
+- name: Configure grafana-agent on FreeBSD based systems
+  include_tasks: "configure_FreeBSD.yml"
+  when:
+    - ansible_os_family == "FreeBSD"
