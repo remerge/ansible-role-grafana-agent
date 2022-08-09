@@ -27,3 +27,28 @@
     mode: '0644'
   notify:
     - restart grafana-agent
+
+- name: Configure grafana-agent addresses
+  ansible.builtin.template:
+    src: sysconfig/grafana-agent.j2
+    dest: /etc/sysconfig/grafana-agent
+    owner: root
+    group: grafana-agent
+    mode: '0644'
+  notify:
+    - restart grafana-agent
+  when:
+    - ansible_os_family == "RedHat"
+
+- name: Configure grafana-agent addresses
+  ansible.builtin.template:
+    src: sysconfig/grafana-agent.j2
+    dest: /etc/default/grafana-agent
+    owner: root
+    group: grafana-agent
+    mode: '0644'
+  notify:
+    - restart grafana-agent
+  when:
+    - ansible_os_family == "Debian"
+

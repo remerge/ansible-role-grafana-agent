@@ -24,17 +24,15 @@ These variables are set in `defaults/main.yml`:
 ---
 # defaults for grafana-agent
 
-agent_version: "0.21.2"
+agent_version: "0.26.1"
 agent_arch: amd64
 agent_url: "https://github.com/grafana/agent/releases/download/v{{ agent_version }}/grafana-agent-{{ agent_version }}-1.{{ agent_arch }}.deb"
 agent_runasroot: false
 
+agent_server_http_address: "127.0.0.1:9099"
+agent_server_grpc_address: "127.0.0.1:19095"
+
 agent_config:
-  server:
-    http_listen_address: '127.0.0.1'
-    http_listen_port: 9099
-    grpc_listen_address: '127.0.0.1'
-    grpc_listen_port: 19095
   metrics:
     global:
       scrape_interval: 15s

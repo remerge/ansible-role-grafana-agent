@@ -3,3 +3,11 @@
   yum:
     name: "{{ agent_url }}.rpm"
     disable_gpg_check: yes
+
+- name: in case of an update force systemd to reread configs
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: in case of an update force systemd to re-execute itself
+  ansible.builtin.systemd:
+    daemon_reexec: yes
