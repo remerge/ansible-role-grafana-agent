@@ -5,8 +5,8 @@
 
 - name: in case of an update force systemd to reread configs
   ansible.builtin.systemd:
-    daemon_reload: yes
+    daemon_reload: true
 
 - name: in case of an update force systemd to re-execute itself
   ansible.builtin.systemd:
-    daemon_reexec: yes
+    daemon_reexec: true

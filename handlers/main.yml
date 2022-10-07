@@ -4,7 +4,7 @@
 - name: restart grafana-agent
   ansible.builtin.systemd:
     name: grafana-agent
-    daemon_reload: yes
+    daemon_reload: true
     state: restarted
   when:
     - not ansible_check_mode | bool

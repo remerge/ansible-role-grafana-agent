@@ -3,9 +3,8 @@
   ansible.builtin.file:
     path: /etc/systemd/system/grafana-agent.service.d
     state: directory
-    mode: '0755'
-  when:
-    agent_runasroot | bool
+    mode: "0755"
+  when: agent_runasroot | bool
 
 - name: copy root.conf to allow grafana-agent to run as root
   ansible.builtin.copy:
@@ -14,9 +13,8 @@
     owner: root
     group: root
     mode: "0644"
-    backup: no
-  when:
-    agent_runasroot | bool
+    backup: false
+  when: agent_runasroot | bool
 
 - name: Configure grafana-agent
   ansible.builtin.template:
@@ -24,7 +22,7 @@
     dest: /etc/grafana-agent.yaml
     owner: root
     group: grafana-agent
-    mode: '0644'
+    mode: "0644"
   notify:
     - restart grafana-agent
 
@@ -34,7 +32,7 @@
     dest: /etc/sysconfig/grafana-agent
     owner: root
     group: grafana-agent
-    mode: '0644'
+    mode: "0644"
   notify:
     - restart grafana-agent
   when:
@@ -46,9 +44,8 @@
     dest: /etc/default/grafana-agent
     owner: root
     group: grafana-agent
-    mode: '0644'
+    mode: "0644"
   notify:
     - restart grafana-agent
   when:
     - ansible_os_family == "Debian"
-
