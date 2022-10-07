@@ -6,7 +6,7 @@
     mode: "0755"
   when: agent_runasroot | bool
 
-- name: copy root.conf to allow grafana-agent to run as root
+- name: Copy root.conf to allow grafana-agent to run as root
   ansible.builtin.copy:
     src: files/root.conf
     dest: /etc/systemd/system/grafana-agent.service.d/root.conf
@@ -24,7 +24,7 @@
     group: grafana-agent
     mode: "0644"
   notify:
-    - restart grafana-agent
+    - Restart grafana-agent
 
 - name: Configure grafana-agent addresses
   ansible.builtin.template:
@@ -34,7 +34,7 @@
     group: grafana-agent
     mode: "0644"
   notify:
-    - restart grafana-agent
+    - Restart grafana-agent
   when:
     - ansible_os_family == "RedHat"
 
@@ -46,6 +46,6 @@
     group: grafana-agent
     mode: "0644"
   notify:
-    - restart grafana-agent
+    - Restart grafana-agent
   when:
     - ansible_os_family == "Debian"
