@@ -1,13 +1,12 @@
 ---
-
 - name: test if agent_version is defined
   ansible.builtin.assert:
     that:
       - agent_version is defined
-    quiet: yes
+    quiet: true
 
 - name: test if agent_arch is defined
   ansible.builtin.assert:
     that:
       - agent_arch is defined
-    quiet: yes
+    quiet: true
