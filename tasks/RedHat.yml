@@ -1,13 +1,13 @@
 ---
 - name: Install grafana-agent .rpm package from the internet
-  yum:
+  ansible.builtin.yum:
     name: "{{ agent_url }}.rpm"
     disable_gpg_check: true
 
-- name: in case of an update force systemd to reread configs
+- name: In case of an update force systemd to reread configs
   ansible.builtin.systemd:
     daemon_reload: true
 
-- name: in case of an update force systemd to re-execute itself
+- name: In case of an update force systemd to re-execute itself
   ansible.builtin.systemd:
     daemon_reexec: true

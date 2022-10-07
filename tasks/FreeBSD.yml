@@ -1,5 +1,5 @@
 ---
-- name: unpack grafana-agent to /usr/local/bin
+- name: Unpack grafana-agent to /usr/local/bin
   ansible.builtin.unarchive:
     src: https://github.com/grafana/agent/releases/download/v{{ agent_version }}/agent-freebsd-amd64.zip
     dest: /usr/local/bin

@@ -1,7 +1,7 @@
 ---
 # handlers file for grafana-agent
 
-- name: restart grafana-agent
+- name: Restart grafana-agent
   ansible.builtin.systemd:
     name: grafana-agent
     daemon_reload: true
@@ -9,7 +9,7 @@
   when:
     - not ansible_check_mode | bool
 
-- name: restart grafana_agent
+- name: Restart grafana_agent
   ansible.builtin.service:
     name: grafana_agent
     state: restarted
