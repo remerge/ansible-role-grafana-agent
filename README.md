@@ -3,6 +3,9 @@
 Install and Configure [Grafana Agent](https://github.com/grafana/agent) with
 Ansible.
 
+The [Contributing Guide](CONTRIBUTING.md) explains how to work with and
+contribute to this repository.
+
 ## [Example Playbook](#example-playbook)
 
 This example is taken from `molecule/resources/converge.yml` and is tested on

@@ -29,10 +29,24 @@ need to be installed manually.
 - [direnv](https://direnv.net) to ensure a working environment
 - [copier](https://copier.readthedocs.io) to update this repository from the
   template
+- [poetry](https://python-poetry.org) to install Python project dependencies
 
 Most dependencies can be installed using [Homebrew](https://brew.sh):
 
 ```shell
 brew install --cask docker
 brew install pre-commit pipx direnv copier
+brew install poetry
+```
+
+### Ansible Installation
+
+Some Ansible collections and modules need Python libraries to function
+properly. To prevent clobbering your system installation of Python it is
+recommended to install Ansible with [pipx](https://pypa.github.io/pipx/):
+
+```shell
+pipx install --include-deps ansible
+pipx inject --include-apps ansible ansible-lint
+pipx inject ansible netaddr
 ```

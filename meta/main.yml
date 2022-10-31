@@ -2,19 +2,15 @@
 galaxy_info:
   author: remerge
   role_name: grafana_agent
-  description: Install and configure Grafana Agent.
-  license: BSD 3-Clause License
-  company: remerge
+  description: Install and configure Grafana Agent with Ansible.
+  license: apache-2.0
+  company: remerge.io
   min_ansible_version: "2.10"
 
   platforms:
-    - name: Debian
+    - name: EL
       versions:
-        - buster
-    - name: Ubuntu
-      versions:
-        - bionic
-        - focal
+        - "8"
 
   galaxy_tags:
     - grafana
