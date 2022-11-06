@@ -58,12 +58,12 @@ repos:
       - id: shellcheck
 
   - repo: https://github.com/hollow/pre-commit-actionlint
-    rev: "v1.6.19"
+    rev: "v1.6.22"
     hooks:
       - id: actionlint
 
   - repo: https://github.com/ansible/ansible-lint
-    rev: "v6.8.5"
+    rev: "v6.8.6"
     hooks:
       - id: ansible-lint
         name: ansible-lint
@@ -83,9 +83,3 @@ repos:
     rev: "v0.17.0"
     hooks:
       - id: gitlint
-
-  - repo: https://github.com/radix-ai/auto-smart-commit
-    rev: "v1.0.2"
-    hooks:
-      - id: auto-smart-commit
-        name: auto-smart-commit

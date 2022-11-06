@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ansible-role-grafana-agent"
-version = "0.0.0"
+version = "0.1.0"
 description = "Install and configure Grafana Agent with Ansible."
 authors = ["Remerge GmbH <sre@remerge.io>"]
 
