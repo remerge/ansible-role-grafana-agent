@@ -18,8 +18,13 @@
     state: present
 
 - name: Configure grafana-agent
-  ansible.builtin.template:
-    src: grafana-agent.yaml.j2
+  ansible.builtin.copy:
+    content: >-
+      {{
+        grafana_agent_default_config |
+        combine(grafana_agent_config, recursive=True) |
+        to_nice_yaml(indent=2, explicit_start=True, explicit_end=True)
+      }}
     dest: /etc/grafana-agent.yaml
     owner: root
     group: grafana-agent

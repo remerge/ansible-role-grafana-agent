@@ -6,10 +6,7 @@ Ansible.
 The [Contributing Guide](CONTRIBUTING.md) explains how to work with and
 contribute to this repository.
 
-## [Example Playbook](#example-playbook)
-
-This example is taken from `molecule/resources/converge.yml` and is tested on
-each push, pull request and release.
+## Example Playbook
 
 ```yaml
 ---
@@ -17,90 +14,24 @@ each push, pull request and release.
   hosts: all
   become: yes
   gather_facts: yes
-
   roles:
-    - role: ansible-role-grafana-exporter
+    - role: remerge.grafana_agent
 ```
 
-## [Role Variables](#role-variables)
-
-for agent configuration have a look at [Grafana Agent
-Documentation](https://github.com/grafana/agent/blob/main/docs/configuration/_index.md)
+## Role Variables
 
 These variables are set in `defaults/main.yml`:
 
 ```yaml
 ---
-agent_server_http_address: "127.0.0.1:9090"
-agent_server_grpc_address: "127.0.0.1:9091"
-
-agent_config:
-  metrics:
-    global:
-      scrape_interval: 15s
-      remote_write:
-        - url: http://mimir.service.consul:9009/api/v1/push
-    wal_directory: "/var/lib/grafana-agent"
-    configs:
-      - name: agent
-        host_filter: false
-        scrape_configs:
-          - job_name: agent
-            static_configs:
-              - targets: ["127.0.0.1:9099"]
-  integrations:
-    agent:
-      enabled: true
-    node_exporter:
-      enabled: true
-      include_exporter_metrics: true
-      enable_collectors:
-        - "systemd"
-      disable_collectors:
-        - "mdadm"
-    consul_exporter:
-      enabled: true
-  logs:
-    configs:
-      - name: default
-        positions:
-          filename: /tmp/positions.yaml
-        scrape_configs:
-          - job_name: varlogs
-            static_configs:
-              - targets: [localhost]
-                labels:
-                  job: varlogs
-                  __path__: /var/log/*log
-          - job_name: journal
-            journal:
-              max_age: 12h
-              labels:
-                job: systemd-journal
-            relabel_configs:
-              - source_labels: ["__journal__systemd_unit"]
-                target_label: "unit"
-        clients:
-          - url: http://loki.service.consul:3100/loki/api/v1/push
+grafana_agent_server_http_address: "127.0.0.1:9090"
+grafana_agent_server_grpc_address: "127.0.0.1:9091"
+grafana_agent_config: {}
 ```
 
-## [Compatibility](#compatibility)
-
-This role has been tested on these [container
-images](https://hub.docker.com/u/robertdebock):
-
-| container | tags          |
-| --------- | ------------- |
-| debian    | buster        |
-| ubuntu    | bionic, focal |
-| RHEL      | 7, 8          |
-| Fedora    | 33, 34        |
-| FreeBSD   | 12, 13        |
-
-The minimum version of Ansible required is 2.10, tests have been done to:
-
-- The previous version.
-- The current version.
-- The development version.
-
-If you find issues, please register them in [GitHub](https://github.com/langerma/ansible-role-grafana-agent/issues)
+This role uses the [default
+configuration](https://github.com/grafana/agent/blob/main/packaging/grafana-agent.yaml)
+and merges custom configuration from the `grafana_agent_config` variable. Refer
+to the [Grafana Agent
+documentation](https://grafana.com/docs/agent/latest/configuration/) for more
+information.
