@@ -31,22 +31,15 @@ These variables are set in `defaults/main.yml`:
 
 ```yaml
 ---
-# defaults for grafana-agent
-
-agent_version: "0.26.1"
-agent_arch: amd64
-agent_url: "https://github.com/grafana/agent/releases/download/v{{ agent_version }}/grafana-agent-{{ agent_version }}-1.{{ agent_arch }}.deb"
-agent_runasroot: false
-
-agent_server_http_address: "127.0.0.1:9099"
-agent_server_grpc_address: "127.0.0.1:19095"
+agent_server_http_address: "127.0.0.1:9090"
+agent_server_grpc_address: "127.0.0.1:9091"
 
 agent_config:
   metrics:
     global:
       scrape_interval: 15s
       remote_write:
-        - url: http://cortex.service.consul:9009/api/v1/push
+        - url: http://mimir.service.consul:9009/api/v1/push
     wal_directory: "/var/lib/grafana-agent"
     configs:
       - name: agent

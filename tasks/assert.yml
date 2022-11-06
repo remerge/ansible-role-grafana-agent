@@ -4,9 +4,3 @@
     that:
       - agent_version is defined
     quiet: true
-
-- name: Test if agent_arch is defined
-  ansible.builtin.assert:
-    that:
-      - agent_arch is defined
-    quiet: true

@@ -1,32 +1,38 @@
 ---
-# tasks file for grafana-agent
-
 - name: Import assert.yml
   ansible.builtin.import_tasks: assert.yml
   run_once: true
   delegate_to: localhost
 
-- name: Install on RedHat
-  ansible.builtin.include_tasks: "RedHat.yml"
-  when:
-    - ansible_os_family == "RedHat"
+- name: Add grafana repository
+  ansible.builtin.yum_repository:
+    name: grafana
+    description: grafana
+    baseurl: https://rpm.grafana.com
+    gpgkey: https://rpm.grafana.com/gpg.key
+    gpgcheck: true
 
-- name: Install on Debian
-  ansible.builtin.include_tasks: "Debian.yml"
-  when:
-    - ansible_os_family == "Debian"
+- name: Install grafana-agent
+  ansible.builtin.package:
+    name: grafana-agent
+    state: present
 
-- name: Install on FreeBSD
-  ansible.builtin.include_tasks: "FreeBSD.yml"
-  when:
-    - ansible_os_family == "FreeBSD"
+- name: Configure grafana-agent
+  ansible.builtin.template:
+    src: grafana-agent.yaml.j2
+    dest: /etc/grafana-agent.yaml
+    owner: root
+    group: grafana-agent
+    mode: 0644
+  notify:
+    - Restart grafana-agent
 
-- name: Configure grafana-agent on RedHat or Debian based systems
-  ansible.builtin.include_tasks: "configure_linux.yml"
-  when:
-    - ansible_os_family == "RedHat" or ansible_os_family == "Debian"
-
-- name: Configure grafana-agent on FreeBSD based systems
-  ansible.builtin.include_tasks: "configure_FreeBSD.yml"
-  when:
-    - ansible_os_family == "FreeBSD"
+- name: Configure grafana-agent addresses
+  ansible.builtin.template:
+    src: sysconfig/grafana-agent.j2
+    dest: /etc/sysconfig/grafana-agent
+    owner: root
+    group: grafana-agent
+    mode: 0644
+  notify:
+    - Restart grafana-agent
