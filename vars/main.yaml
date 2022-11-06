@@ -1,6 +1,8 @@
 ---
 grafana_agent_default_config:
   metrics:
+    global:
+      scrape_interval: 15s
     wal_directory: /var/lib/grafana-agent
   integrations:
     agent:
@@ -8,3 +10,9 @@ grafana_agent_default_config:
     node_exporter:
       enabled: true
       include_exporter_metrics: true
+      enable_collectors:
+        - ethtool
+        - ksmd
+        - ntp
+        - systemd
+        - tcpstat

@@ -1,6 +1,0 @@
----
-- name: Test if agent_version is defined
-  ansible.builtin.assert:
-    that:
-      - agent_version is defined
-    quiet: true
