@@ -1,10 +1,6 @@
 ---
 grafana_agent_default_config:
-  server:
-    log_level: warn
   metrics:
-    global:
-      scrape_interval: 1m
     wal_directory: /var/lib/grafana-agent
   integrations:
     agent:
@@ -12,5 +8,3 @@ grafana_agent_default_config:
     node_exporter:
       enabled: true
       include_exporter_metrics: true
-      disable_collectors:
-        - "mdadm"
