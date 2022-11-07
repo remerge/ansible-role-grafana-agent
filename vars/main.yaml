@@ -3,7 +3,12 @@ grafana_agent_default_config:
   metrics:
     global:
       scrape_interval: 15s
-    wal_directory: /var/lib/grafana-agent
+      external_labels: "{{ grafana_agent_external_labels }}"
+      remote_write:
+        - url: "{{ grafana_agent_metrics_url }}"
+          headers:
+            X-Scope-OrgID: "{{ grafana_agent_tenant }}"
+    wal_directory: "{{ grafana_agent_wal_directory }}"
   integrations:
     agent:
       enabled: true
@@ -13,6 +18,32 @@ grafana_agent_default_config:
       enable_collectors:
         - ethtool
         - ksmd
-        - ntp
         - systemd
         - tcpstat
+  logs:
+    positions_directory: "{{ grafana_agent_positions_directory }}"
+    configs:
+      - name: journal
+        scrape_configs:
+          - job_name: journal
+            journal:
+              max_age: 12h
+              labels:
+                job: systemd-journal
+            relabel_configs:
+              - source_labels: [__journal__systemd_unit]
+                target_label: unit
+              - source_labels: [__journal__hostname]
+                target_label: host
+              - source_labels: [__journal_priority_keyword]
+                target_label: level
+        clients:
+          - url: "{{ grafana_agent_logs_url }}"
+            tenant_id: "{{ grafana_agent_tenant }}"
+            external_labels: "{{ grafana_agent_external_labels }}"
+
+grafana_agent_combined_config: >-
+  {{
+    grafana_agent_default_config |
+    combine(grafana_agent_config, recursive=True, list_merge="append")
+  }}

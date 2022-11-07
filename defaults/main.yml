@@ -1,4 +1,14 @@
 ---
+grafana_agent_wal_directory: /var/lib/grafana-agent
+grafana_agent_positions_directory: /var/lib/promtail
+
 grafana_agent_server_http_address: "127.0.0.1:9090"
 grafana_agent_server_grpc_address: "127.0.0.1:9091"
+
+grafana_agent_tenant: null
+grafana_agent_external_labels: {}
+
+grafana_agent_metrics_url: null
+grafana_agent_logs_url: null
+
 grafana_agent_config: {}

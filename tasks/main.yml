@@ -12,12 +12,31 @@
     name: grafana-agent
     state: present
 
+- name: Create grafana_agent_wal_directory
+  ansible.builtin.file:
+    name: "{{ grafana_agent_wal_directory }}"
+    state: directory
+    owner: grafana_agent
+    group: grafana_agent
+    mode: 0700
+  notify:
+    - Restart grafana-agent
+
+- name: Create grafana_agent_positions_directory
+  ansible.builtin.file:
+    name: "{{ grafana_agent_positions_directory }}"
+    state: directory
+    owner: grafana_agent
+    group: grafana_agent
+    mode: 0700
+  notify:
+    - Restart grafana-agent
+
 - name: Configure grafana-agent
   ansible.builtin.copy:
     content: >-
       {{
-        grafana_agent_default_config |
-        combine(grafana_agent_config, recursive=True) |
+        grafana_agent_combined_config |
         to_nice_yaml(indent=2, explicit_start=True, explicit_end=True)
       }}
     dest: /etc/grafana-agent.yaml
