@@ -16,8 +16,8 @@
   ansible.builtin.file:
     name: "{{ grafana_agent_wal_directory }}"
     state: directory
-    owner: grafana_agent
-    group: grafana_agent
+    owner: grafana-agent
+    group: grafana-agent
     mode: 0700
   notify:
     - Restart grafana-agent
@@ -26,8 +26,8 @@
   ansible.builtin.file:
     name: "{{ grafana_agent_positions_directory }}"
     state: directory
-    owner: grafana_agent
-    group: grafana_agent
+    owner: grafana-agent
+    group: grafana-agent
     mode: 0700
   notify:
     - Restart grafana-agent
