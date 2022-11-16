@@ -12,10 +12,10 @@ grafana_agent_default_config:
   integrations:
     agent:
       enabled: true
-      instance: "{{ ansible_fqdn }}"
+      instance: "{{ inventory_hostname }}"
     node_exporter:
       enabled: true
-      instance: "{{ ansible_fqdn }}"
+      instance: "{{ inventory_hostname }}"
       include_exporter_metrics: true
       enable_collectors:
         - ethtool
@@ -32,7 +32,7 @@ grafana_agent_default_config:
               max_age: 12h
               labels:
                 job: systemd-journal
-                instance: "{{ ansible_fqdn }}"
+                instance: "{{ inventory_hostname }}"
             relabel_configs:
               - source_labels: [__journal__systemd_unit]
                 target_label: unit
