@@ -5,10 +5,12 @@ grafana_agent_positions_directory: /var/lib/promtail
 grafana_agent_server_http_address: "127.0.0.1:9090"
 grafana_agent_server_grpc_address: "127.0.0.1:9091"
 
-grafana_agent_tenant: null
-grafana_agent_external_labels: {}
+grafana_agent_tenant: "{{ tenant }}"
+grafana_agent_external_labels:
+  cluster: "{{ cluster }}"
+  hostgroup: "{{ hostgroup }}"
 
-grafana_agent_metrics_url: null
-grafana_agent_logs_url: null
+grafana_agent_metrics_url: "http://mimir.service.grafana.consul/api/v1/push"
+grafana_agent_logs_url: "http://loki-distributor.service.grafana.consul/loki/api/v1/push"
 
 grafana_agent_config: {}
