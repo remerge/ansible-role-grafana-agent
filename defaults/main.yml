@@ -9,6 +9,7 @@ grafana_agent_tenant: "{{ tenant }}"
 grafana_agent_external_labels:
   cluster: "{{ cluster }}"
   hostgroup: "{{ hostgroup }}"
+  instance: "{{ inventory_hostname }}"
 
 grafana_agent_metrics_url: "http://mimir.service.grafana.consul/api/v1/push"
 grafana_agent_logs_url: "http://loki-distributor.service.grafana.consul/loki/api/v1/push"

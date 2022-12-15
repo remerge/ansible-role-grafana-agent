@@ -34,53 +34,46 @@ grafana_agent_default_config:
             journal:
               max_age: 12h
               labels:
-                job: systemd-journal
-                instance: "{{ inventory_hostname }}"
+                job: journal
             relabel_configs:
-              - source_labels: [__journal__systemd_unit]
-                target_label: unit
-              - source_labels: [__journal_priority_keyword]
+              - source_labels:
+                  - __journal__systemd_unit
+                target_label: systemd_unit
+              - source_labels:
+                  - __journal_priority_keyword
                 target_label: level
           - job_name: docker_sd
             docker_sd_configs:
               - host: unix:///var/run/docker.sock
             relabel_configs:
               - source_labels:
-                  ["__meta_docker_container_label_com_hashicorp_nomad_alloc_id"]
-                target_label: "alloc_id"
+                  - __meta_docker_container_label_com_hashicorp_nomad_alloc_id
+                target_label: nomad_alloc_id
               - source_labels:
-                  ["__meta_docker_container_label_com_hashicorp_nomad_job_id"]
-                target_label: "job_id"
+                  - __meta_docker_container_label_com_hashicorp_nomad_job_id
+                target_label: nomad_job_id
               - source_labels:
-                  ["__meta_docker_container_label_com_hashicorp_nomad_job_name"]
-                target_label: "job_name"
+                  - __meta_docker_container_label_com_hashicorp_nomad_job_name
+                target_label: nomad_job_name
               - source_labels:
-                  [
-                    "__meta_docker_container_label_com_hashicorp_nomad_namespace",
-                  ]
-                target_label: "namespace"
+                  - __meta_docker_container_label_com_hashicorp_nomad_namespace
+                target_label: nomad_namespace
               - source_labels:
-                  ["__meta_docker_container_label_com_hashicorp_nomad_node_id"]
-                target_label: "node_id"
+                  - __meta_docker_container_label_com_hashicorp_nomad_node_id
+                target_label: nomad_node_id
               - source_labels:
-                  [
-                    "__meta_docker_container_label_com_hashicorp_nomad_node_name",
-                  ]
-                target_label: "node_name"
+                  - __meta_docker_container_label_com_hashicorp_nomad_node_name
+                target_label: nomad_node_name
               - source_labels:
-                  [
-                    "__meta_docker_container_label_com_hashicorp_nomad_task_group_name",
-                  ]
-                target_label: "task_group_name"
+                  - __meta_docker_container_label_com_hashicorp_nomad_task_group_name
+                target_label: nomad_task_group_name
               - source_labels:
-                  [
-                    "__meta_docker_container_label_com_hashicorp_nomad_task_name",
-                  ]
-                target_label: "task_name"
+                  - __meta_docker_container_label_com_hashicorp_nomad_task_name
+                target_label: nomad_task_name
             pipeline_stages:
               - docker: {}
               - static_labels:
-                  source: "nomad"
+                  job: docker
         clients:
           - url: "{{ grafana_agent_logs_url }}"
             tenant_id: "{{ grafana_agent_tenant }}"
