@@ -22,6 +22,9 @@ grafana_agent_default_config:
         - ksmd
         - systemd
         - tcpstat
+    consul_exporter:
+      enabled: "{{ 'consul' in group_names }}"
+      instance: "{{ inventory_hostname }}"
   logs:
     positions_directory: "{{ grafana_agent_positions_directory }}"
     configs:
