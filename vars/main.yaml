@@ -8,33 +8,33 @@ grafana_agent_default_config:
         - url: "{{ grafana_agent_metrics_url }}"
           headers:
             X-Scope-OrgID: "{{ grafana_agent_tenant }}"
-      configs:
-        - name: self
-          scrape_configs:
-            - job_name: self-discover-all
-              consul_sd_configs:
-              relabel_configs:
-                - source_labels: [__meta_consul_node]
-                  regex: "{{ inventory_hostname_short }}"
-                  action: keep
-                - source_labels: [__meta_consul_tags]
-                  regex: .*,metric,.*
-                  action: keep
-                - source_labels: [__meta_consul_service]
-                  target_label: job
-            - job_name: "nomad"
-              consul_sd_configs:
-                services: ["nomad-client", "nomad"]
-              relabel_configs:
-                - source_labels: [__meta_consul_node]
-                  regex: "{{ inventory_hostname_short }}"
-                  action: keep
-                - source_labels: ["__meta_consul_tags"]
-                  regex: "(.*)http(.*)"
-                  action: keep
-              metrics_path: /v1/metrics
-              params:
-                format: ["prometheus"]
+    configs:
+      - name: self
+        scrape_configs:
+          - job_name: self-discover-all
+            consul_sd_configs:
+            relabel_configs:
+              - source_labels: [__meta_consul_node]
+                regex: "{{ inventory_hostname_short }}"
+                action: keep
+              - source_labels: [__meta_consul_tags]
+                regex: .*,metric,.*
+                action: keep
+              - source_labels: [__meta_consul_service]
+                target_label: job
+          - job_name: "nomad"
+            consul_sd_configs:
+              - services: ["nomad-client", "nomad"]
+            relabel_configs:
+              - source_labels: [__meta_consul_node]
+                regex: "{{ inventory_hostname_short }}"
+                action: keep
+              - source_labels: ["__meta_consul_tags"]
+                regex: "(.*)http(.*)"
+                action: keep
+            metrics_path: /v1/metrics
+            params:
+              format: ["prometheus"]
     wal_directory: "{{ grafana_agent_wal_directory }}"
   integrations:
     agent:
