@@ -32,6 +32,8 @@ grafana_agent_default_config:
                 - source_labels: ["__meta_consul_tags"]
                   regex: "(.*)http(.*)"
                   action: keep
+                - source_labels: [__meta_consul_service]
+                  target_label: job
               metrics_path: /v1/metrics
               params:
                 format: ["prometheus"]
