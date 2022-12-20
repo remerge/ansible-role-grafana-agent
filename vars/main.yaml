@@ -22,7 +22,22 @@ grafana_agent_default_config:
                   action: keep
                 - source_labels: [__meta_consul_service]
                   target_label: job
-
+            - job_name: "nomad_metrics"
+              consul_sd_configs:
+                services: ["nomad-client", "nomad"]
+              relabel_configs:
+                - source_labels: [__meta_consul_node]
+                  regex: "{{ inventory_hostname_short }}"
+                  action: keep
+                - source_labels: ["__meta_consul_tags"]
+                  regex: "(.*)http(.*)"
+                  action: keep
+                - source_labels: ["__meta_consul_node"]
+                  replacement: "$1"
+                  target_label: instance
+              metrics_path: /v1/metrics
+              params:
+                format: ["prometheus"]
     wal_directory: "{{ grafana_agent_wal_directory }}"
   integrations:
     agent:
