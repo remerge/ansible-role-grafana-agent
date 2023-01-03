@@ -36,7 +36,7 @@
   ansible.builtin.copy:
     content: >-
       {{
-        grafana_agent_combined_config |
+        grafana_agent_config |
         to_nice_yaml(indent=2, explicit_start=True, explicit_end=True)
       }}
     dest: /etc/grafana-agent.yaml
