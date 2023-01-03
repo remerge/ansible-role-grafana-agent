@@ -19,8 +19,5 @@ grafana_agent_config:
       enabled: true
       instance: "{{ inventory_hostname }}"
       include_exporter_metrics: true
-      enable_collectors:
-        - ethtool
-        - ksmd
-        - systemd
-        - tcpstat
+      disable_collectors:
+        - mdadm
