@@ -12,6 +12,12 @@
     name: grafana-agent
     state: present
 
+- name: Add grafana-agent to group docker
+  user:
+    name: grafana-agent
+    groups: docker
+    append: yes
+
 - name: Create grafana_agent_wal_directory
   ansible.builtin.file:
     name: "{{ grafana_agent_wal_directory }}"
