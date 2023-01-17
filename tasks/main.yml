@@ -55,3 +55,12 @@
     mode: 0644
   notify:
     - Restart grafana-agent
+
+- name: Flush handlers to prevent restart after start
+  ansible.builtin.meta: flush_handlers
+
+- name: Start grafana-agent
+  ansible.builtin.systemd:
+    name: grafana-agent
+    state: started
+    enabled: true
