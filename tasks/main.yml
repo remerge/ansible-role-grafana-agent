@@ -55,3 +55,8 @@
     mode: 0644
   notify:
     - Restart grafana-agent
+
+- name: Enable grafana-agent
+  ansible.builtin.systemd:
+    name: grafana-agent
+    enabled: true
