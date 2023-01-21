@@ -1,25 +1,8 @@
 ---
 galaxy_info:
-  author: remerge
   role_name: grafana_agent
   description: Install and configure Grafana Agent with Ansible.
   license: apache-2.0
+  author: remerge
   company: remerge.io
-  min_ansible_version: "2.10"
-
-  platforms:
-    - name: EL
-      versions:
-        - "8"
-        - "9"
-
-  galaxy_tags:
-    - grafana
-    - prometheus
-    - loki
-    - tempo
-    - promtail
-    - server
-    - agent
-
-dependencies: []
+  min_ansible_version: "2.14"
