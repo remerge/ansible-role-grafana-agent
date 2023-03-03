@@ -17,7 +17,7 @@
     path: /etc/systemd/system/grafana-agent.service.d
     state: directory
     mode: 0755
-  when: grafana_agent_run_as_root | bool
+  when: grafana_agent_run_as_root
   notify: Restart grafana-agent
 
 - name: Copy root.conf to run as root
@@ -28,7 +28,7 @@
     group: root
     mode: 0644
     backup: false
-  when: grafana_agent_run_as_root | bool
+  when: grafana_agent_run_as_root
   notify: Restart grafana-agent
 
 - name: Create grafana_agent_wal_directory
