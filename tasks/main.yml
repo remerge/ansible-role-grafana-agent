@@ -12,6 +12,27 @@
     name: grafana-agent
     state: present
 
+- name: Create drop in for grafana-agent service
+  ansible.builtin.file:
+    path: /etc/systemd/system/grafana-agent.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when: grafana_agent_run_as_root
+  notify: Restart grafana-agent
+
+- name: Copy root.conf to run as root
+  ansible.builtin.copy:
+    src: files/root.conf
+    dest: /etc/systemd/system/grafana-agent.service.d/root.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: false
+  when: grafana_agent_run_as_root
+  notify: Restart grafana-agent
+
 - name: Create grafana_agent_wal_directory
   ansible.builtin.file:
     name: "{{ grafana_agent_wal_directory }}"

@@ -1,4 +1,6 @@
 ---
+grafana_agent_run_as_root: true
+
 grafana_agent_wal_directory: /var/lib/grafana-agent
 grafana_agent_positions_directory: /var/lib/promtail
 
