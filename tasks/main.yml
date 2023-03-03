@@ -16,7 +16,7 @@
   ansible.builtin.file:
     path: /etc/systemd/system/grafana-agent.service.d
     state: directory
-    mode: "0755"
+    mode: 0755
   when: grafana_agent_run_as_root | bool
   notify: Restart grafana-agent
 
@@ -26,7 +26,7 @@
     dest: /etc/systemd/system/grafana-agent.service.d/root.conf
     owner: root
     group: root
-    mode: "0644"
+    mode: 0644
     backup: false
   when: grafana_agent_run_as_root | bool
   notify: Restart grafana-agent
