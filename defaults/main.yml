@@ -22,4 +22,4 @@ grafana_agent_config:
       instance: "{{ inventory_hostname }}"
       include_exporter_metrics: true
       disable_collectors:
-    - mdadm
+        - mdadm
