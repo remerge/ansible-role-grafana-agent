@@ -72,7 +72,7 @@
     src: sysconfig/grafana-agent.j2
     dest: /etc/sysconfig/grafana-agent
     owner: root
-    group: grafana-agent
+    group: root
     mode: 0644
   notify:
     - Restart grafana-agent
